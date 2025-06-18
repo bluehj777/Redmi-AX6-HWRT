@@ -252,7 +252,7 @@ jobs:
           tag_name: HWRT-RE-CS-07-Immortalwrt-${{env.WRT_INFO}}-${{ env.WRT_USEAPK == 'true' && 'APK' || 'IPK' }}-R${{env.WRT_DATE}}
           files: ./wrt/upload/*.*
           body: |
-            这是个平台固件包针对京东云太乙路由器(RE-CS-07)设备！
+            固件只针对QUALCOMMAX系列的红米Redmi ax6无线路由器！
 
             全系带开源NSS硬件加速！
 
