@@ -255,7 +255,7 @@ jobs:
       - name: Release Firmware
         uses: softprops/action-gh-release@master
         with:
-          tag_name: HWRT-RE-CS-07-Immortalwrt-${{env.WRT_INFO}}-${{ env.WRT_USEAPK == 'true' && 'APK' || 'IPK' }}-R${{env.WRT_DATE}}
+          tag_name: ${{env.WRT_NAME}}-${{env.WRT_INFO}}-${{env.WRT_BRANCH}}-${{ env.WRT_USEAPK == 'true' && 'APK' || 'IPK' }}-${{env.WRT_DATE}}
           files: ./wrt/upload/*.*
           body: |
             固件只针对QUALCOMMAX系列的红米Redmi ax6无线路由器！
