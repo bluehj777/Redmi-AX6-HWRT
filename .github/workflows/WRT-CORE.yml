@@ -256,7 +256,7 @@ jobs:
             
             make clean -j$(nproc)
           fi
-          
+
       - name: Release Firmware
         uses: softprops/action-gh-release@master
         with:
