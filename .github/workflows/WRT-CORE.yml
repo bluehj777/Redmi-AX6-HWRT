@@ -233,11 +233,17 @@ jobs:
 
             # 移动并重命名固件文件到 upload 目录
             PKG_TYPE=$([[ $WRT_USEAPK == 'true' ]] && echo "apk" || echo "ipk")
-            find ./bin/targets/ -type f \( -name "*.img.gz" -o -name "*.bin" -o -name "*.ubi"\) | while read -r FILE; do
-              BASENAME=$(basename "$FILE")
-              # 在 squashfs 后面插入包类型
-              NEWNAME=$(echo "$BASENAME" | sed "s/\(squashfs\)/\1-${PKG_TYPE}/")
-              cp "$FILE" "./upload/$NEWNAME"
+            # 处理 .bin 文件
+            find ./bin/targets/ -type f -name "*.bin" | while read -r FILE; do
+                BASENAME=$(basename "$FILE")
+                NEWNAME=$(echo "$BASENAME" | sed "s/\(squashfs\)/\1-${PKG_TYPE}/")
+                cp "$FILE" "./upload/$NEWNAME"
+            done
+            # 处理 .ubi 文件
+            find ./bin/targets/ -type f -name "*.ubi" | while read -r FILE; do
+                BASENAME=$(basename "$FILE")
+                NEWNAME=$(echo "$BASENAME" | sed "s/\(squashfs\)/\1-${PKG_TYPE}/")
+                cp "$FILE" "./upload/$NEWNAME"
             done
             
             # 打包整个 bin 目录（包含 targets 和 packages）
