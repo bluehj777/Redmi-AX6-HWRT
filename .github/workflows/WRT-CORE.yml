@@ -121,6 +121,70 @@ jobs:
             sed -i '/.cn\//d; /tencent/d; /aliyun/d' "$PROJECT_MIRRORS_FILE"
           fi
 
+      - name: Upgrade OpenSSL to 3.5.0
+        run: |
+          cd ./wrt/
+          
+          # 检查当前 OpenSSL 版本
+          if [ -f "package/libs/openssl/Makefile" ]; then
+            CURRENT_VERSION=$(grep "PKG_VERSION" package/libs/openssl/Makefile | cut -d'=' -f2)
+            echo "Current OpenSSL version: $CURRENT_VERSION"
+            
+            # 检查是否为 3.0.16
+            if [ "$CURRENT_VERSION" = "3.0.16" ]; then
+              echo "Found OpenSSL 3.0.16, proceeding with upgrade to 3.5.0..."
+              
+              # 备份原有目录
+              mv package/libs/openssl package/libs/openssl.bak
+              echo "Original OpenSSL directory backed up"
+              
+              # 从 GitHub 拉取 OpenSSL 3.5.0 补丁
+              echo "Downloading OpenSSL 3.5.0 patch from GitHub..."
+              curl -L -o openssl-3.5.0-patch.tar.gz https://github.com/bluehj777/wrt_release/archive/refs/heads/main.tar.gz
+              
+              # 解压并提取 openssl 目录
+              tar -xzf openssl-3.5.0-patch.tar.gz
+              
+              # 复制 openssl 目录到正确位置
+              cp -r wrt_release-main/patches/openssl package/libs/
+              
+              # 验证升级是否成功
+              if [ -f "package/libs/openssl/Makefile" ]; then
+                NEW_VERSION=$(grep "PKG_VERSION" package/libs/openssl/Makefile | cut -d'=' -f2)
+                echo "OpenSSL upgrade completed! New version: $NEW_VERSION"
+                
+                # 确认是否为 3.5.0
+                if [ "$NEW_VERSION" = "3.5.0" ]; then
+                  echo "✓ OpenSSL successfully upgraded to 3.5.0"
+                else
+                  echo "⚠ Warning: Expected version 3.5.0, but found $NEW_VERSION"
+                fi
+              else
+                echo "✗ Error: Makefile not found after upgrade"
+                # 如果升级失败，恢复原版本
+                echo "Restoring original OpenSSL version..."
+                rm -rf package/libs/openssl
+                mv package/libs/openssl.bak package/libs/openssl
+              fi
+              
+              # 清理临时文件
+              rm -rf openssl-3.5.0-patch.tar.gz wrt_release-main
+              
+            else
+              echo "Current OpenSSL version is $CURRENT_VERSION, not 3.0.16. Skipping upgrade."
+            fi
+          else
+            echo "OpenSSL Makefile not found, skipping upgrade"
+          fi
+          
+          # 显示最终状态
+          echo "Final OpenSSL status:"
+          if [ -f "package/libs/openssl/Makefile" ]; then
+            grep "PKG_VERSION\|PKG_RELEASE" package/libs/openssl/Makefile
+          else
+            echo "No OpenSSL Makefile found"
+          fi
+
       - name: Check Scripts
         run: |
           find ./ -maxdepth 3 -type f -iregex ".*\(txt\|sh\)$" -exec dos2unix {} \; -exec chmod +x {} \;
