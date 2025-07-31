@@ -30,7 +30,7 @@ jobs:
     name: ${{matrix.CONFIG}}
     strategy:
       fail-fast: false
-      max-parallel: 2
+      #max-parallel: 2
       matrix:
         CONFIG: [IPQ807X-WIFI-YES]
         REPO_INFO:
