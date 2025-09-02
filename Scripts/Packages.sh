@@ -1,37 +1,5 @@
 #!/bin/bash
 
-							  
-				  
-				  
-		 
-										   
- 
-							  
-																												 
- 
-						
-							  
-					   
-				
-									  
-						
-											
-	 
-									 
-   
- 
-
-								
-									 
-							
-						
-						 
-							 
-								
-					   
-							   
-					  
-
 #安装和更新软件包
 UPDATE_PACKAGE() {
 	local PKG_NAME=$1
@@ -78,7 +46,6 @@ UPDATE_PACKAGE() {
 
 # UPDATE_PACKAGE "包名" "项目地址" "项目分支" "pkg/name，可选，pkg为从大杂烩中单独提取包名插件；name为重命名为包名"
 UPDATE_PACKAGE "argon" "sbwml/luci-theme-argon" "openwrt-24.10"
-				
 
 UPDATE_PACKAGE "homeproxy" "VIKINGYFY/homeproxy" "main"
 UPDATE_PACKAGE "nikki" "nikkinikki-org/OpenWrt-nikki" "main"
@@ -88,11 +55,6 @@ UPDATE_PACKAGE "passwall2" "xiaorouji/openwrt-passwall2" "main" "pkg"
 UPDATE_PACKAGE "luci-app-advancedplus" "bluehj777/openwrt_pkgs" "main" "pkg"
 UPDATE_PACKAGE "luci-app-tailscale" "asvow/luci-app-tailscale" "main"
 
-																	 
-																	   
-															 
-															 
-													   
 #UPDATE_PACKAGE "ddns-go" "sirpdboy/luci-app-ddns-go" "main"
 UPDATE_PACKAGE "diskman" "lisaac/luci-app-diskman" "master"
 UPDATE_PACKAGE "easytier" "EasyTier/luci-app-easytier" "main"
@@ -102,7 +64,6 @@ UPDATE_PACKAGE "mosdns" "sbwml/luci-app-mosdns" "v5" "" "v2dat"
 #UPDATE_PACKAGE "netspeedtest" "sirpdboy/luci-app-netspeedtest" "js" "" "homebox speedtest"
 #UPDATE_PACKAGE "openlist2" "sbwml/luci-app-openlist2" "main"
 UPDATE_PACKAGE "partexp" "sirpdboy/luci-app-partexp" "main"
-																 
 #UPDATE_PACKAGE "qbittorrent" "sbwml/luci-app-qbittorrent" "master" "" "qt6base qt6tools rblibtorrent"
 #UPDATE_PACKAGE "qmodem" "FUjr/QModem" "main"
 UPDATE_PACKAGE "viking" "VIKINGYFY/packages" "main" "" "luci-app-timewol luci-app-wolplus"
