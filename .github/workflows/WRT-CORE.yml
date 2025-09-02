@@ -226,6 +226,7 @@ jobs:
           files: ./wrt/upload/*.*
           body: |
             这是高通IPQ807X平台，红米redmi-ax6固件包！
+            带开源NSS硬件加速！
             
             源码：${{env.WRT_REPO}}
             分支：${{env.WRT_BRANCH}}
