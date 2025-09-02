@@ -1,7 +1,7 @@
 # Immortalwrt-OpenWRT-CI
 云编译Immortalwrt固件
 
-本项目参考了[VIKINGYFY](https://github.com/VIKINGYFY/OpenWRT-CI) 和 [ftkey](https://github.com/ftkey/ER1-WRT-CI) 的云编译项目。
+本项目参考了[VIKINGYFY](https://github.com/VIKINGYFY/OpenWRT-CI) 。
 
 源码使用VIKINGYFY的Immortalwrt高通版：
 https://github.com/VIKINGYFY/immortalwrt.git
@@ -9,8 +9,6 @@ https://github.com/VIKINGYFY/immortalwrt.git
 # 固件简要说明：
 
 固件只针对QUALCOMMAX系列的红米Redmi ax6无线路由器
-
-分APK和IPK两种包管理
 
 尽可能集成少量的插件，一些流行插件只做编译而不集成进固件
 
