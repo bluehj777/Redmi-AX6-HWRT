@@ -99,3 +99,19 @@ fi
 	fi
 	echo "IPK package management has been enabled!"
 #fi
+
+# 修改uhttpd RSA 密钥长度
+
+uhttpd_config_file="./package/network/services/uhttpd/files/uhttpd.config"
+if [ -f "$uhttpd_config_file" ]; then
+    sed -i 's/option bits\t\t256/option bits\t\t1024/' "$uhttpd_config_file"
+    # 验证修改是否成功
+    if grep -q "option bits.*1024" "$uhttpd_config_file"; then
+        echo "The length of the uhttpd RSA key has been successfully changed to 1024 bits"
+    else
+        echo "The uhttpd configuration may fail to be modified"
+    fi
+else
+    echo "The uhttpd configuration file is not found $uhttpd_config_file"
+fi
+echo "The uhttpd configuration has been modified!"
