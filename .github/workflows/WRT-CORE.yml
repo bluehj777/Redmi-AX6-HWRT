@@ -41,7 +41,7 @@ on:
         required: false
         type: string
       WRT_FIXNSS:
-        required: true
+        required: false
         type: boolean
 
 env:
