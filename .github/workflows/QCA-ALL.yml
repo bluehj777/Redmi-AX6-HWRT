@@ -72,7 +72,5 @@ jobs:
       WRT_PACKAGE: ${{inputs.PACKAGE}}
       #仅输出配置文件
       WRT_TEST: ${{inputs.TEST}}
-      #Debug Shell
-      DBGSHELL: ${{inputs.DBGSHELL}}
       #Fix NSS Package Hash
       WRT_FIXNSS: ${{inputs.FIXNSS}}
