@@ -20,16 +20,11 @@ on:
         default: 'false'
         required: false
         type: boolean
-      DBGSHELL:
-        description: 'Enable tmate shell for debug'
-        type: boolean
-        required: false
-        default: 'false'
       FIXNSS:
         description: 'Fix NSS Package Hash'
         type: boolean
         required: false
-        default: 'false'
+        default: 'true'
 #CI权限
 permissions: write-all
 
