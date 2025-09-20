@@ -40,6 +40,12 @@ on:
       WRT_TEST:
         required: false
         type: string
+      DBGSHELL:
+        required: false
+        type: boolean
+      WRT_FIXNSS:
+        required: false
+        type: boolean
 
 env:
   GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
@@ -184,6 +190,11 @@ jobs:
         run: |
           cd ./wrt/
           make download -j$(nproc)
+
+      - name: Setup tmate session
+        uses: mxschmitt/action-tmate@v3
+        if: ${{ inputs.DBGSHELL }}
+        timeout-minutes: 15
 
       - name: Compile Firmware
         if: env.WRT_TEST != 'true'
