@@ -180,31 +180,63 @@ jobs:
           sed -i 's|3ec87f221e8905d4b6b8b3d207b7f7c4666c3bc8db7c1f06d4ae2e78f863b8f4|881cbf75efafe380b5adc91bfb1f68add5e29c9274eb950bb1e815c7a3622807|g' feeds/nss_packages/firmware/nss-firmware/Makefile
           make download -j$(nproc)
 
-      - name: Compile Firmware
+      - name: System Resources Check
         if: env.WRT_TEST != 'true'
         run: |
           cd ./wrt/
-          
           echo "=== System Resources Before Build ==="
           df -h
           free -h
-          
-          echo "=== Compiling Tools and Toolchain ==="
+
+      - name: Compile Tools
+        if: env.WRT_TEST != 'true'
+        run: |
+          cd ./wrt/
+          echo "=== Compiling Tools ==="
           make tools/compile -j$(nproc) V=s
+
+      - name: Compile Toolchain
+        if: env.WRT_TEST != 'true'
+        run: |
+          cd ./wrt/
+          echo "=== Compiling Toolchain ==="
           make toolchain/compile -j$(nproc) V=s
-          
+
+      - name: Compile Target
+        if: env.WRT_TEST != 'true'
+        run: |
+          cd ./wrt/
           echo "=== Compiling Target ==="
           make target/compile -j$(nproc) V=s
-          
+
+      - name: Compile Packages
+        if: env.WRT_TEST != 'true'
+        run: |
+          cd ./wrt/
           echo "=== Compiling Packages (Serial Mode) ==="
           # 使用串行编译避免并行竞争问题
           make package/compile -j1 V=s
-          
-          echo "=== Final Assembly ==="
-          make target/install -j$(nproc) V=s
+
+      - name: Install Packages
+        if: env.WRT_TEST != 'true'
+        run: |
+          cd ./wrt/
+          echo "=== Installing Packages ==="
           make package/install -j$(nproc) V=s
+
+      - name: Install Target
+        if: env.WRT_TEST != 'true'
+        run: |
+          cd ./wrt/
+          echo "=== Installing Target ==="
+          make target/install -j$(nproc) V=s
+
+      - name: Generate Package Index
+        if: env.WRT_TEST != 'true'
+        run: |
+          cd ./wrt/
+          echo "=== Generating Package Index ==="
           make package/index V=s
-          
           echo "=== Build Completed Successfully ==="
 
       - name: Machine Information
