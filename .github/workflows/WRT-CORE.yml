@@ -41,7 +41,6 @@ on:
         required: false
         type: string
 
-
 env:
   GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
   WRT_CONFIG: ${{inputs.WRT_CONFIG}}
