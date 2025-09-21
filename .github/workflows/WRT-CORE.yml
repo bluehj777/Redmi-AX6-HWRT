@@ -207,22 +207,6 @@ jobs:
           make package/index V=s
           
           echo "=== Build Completed Successfully ==="
-      
-      - name: Show Error Logs on Failure
-        if: failure()
-        run: |
-          cd ./wrt/
-          
-          echo "=== System Resources ==="
-          df -h
-          free -h
-          
-          echo "=== Error logs ==="
-          find logs -name "*.log" -exec grep -l "Error\|error\|ERROR" {} \; 2>/dev/null | head -3 | while read -r logfile; do
-            echo "=== Content of $logfile ==="
-            tail -30 "$logfile"
-            echo "=========================="
-          done
 
       - name: Machine Information
         run: |
